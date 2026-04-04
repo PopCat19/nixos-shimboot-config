@@ -74,7 +74,7 @@
       system = "x86_64-linux";
 
       # User config from shimboot (shared hostname, username, etc.)
-      userConfig = import shimboot + /shimboot_config/user-config.nix { };
+      userConfig = import (shimboot + /shimboot_config/user-config.nix) { };
 
       # Helper to create a NixOS configuration from a profile directory
       mkConfig =
