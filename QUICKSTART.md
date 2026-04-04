@@ -19,8 +19,8 @@ cd nixos-shimboot-config
 
 ### 2. Choose Your Branch
 
-- `popcat19` — personal desktop config (Hyprland, theming, applications)
-- `main` — reference template for creating your own config
+- `popcat19`. . Personal desktop config (Hyprland, theming, applications)
+- `main`. . Reference template for creating your own config
 
 ```bash
 git checkout popcat19
@@ -58,9 +58,9 @@ nrb
 2. Create a branch with your name (e.g., `alice`)
 3. Copy structure from `main/` as reference
 4. Customize:
-   - `configuration.nix` — system entry point
-   - `system/` — NixOS modules (services, packages, theming)
-   - `home/` — Home Manager modules (dotfiles, apps, WM config)
+   - `configuration.nix`. . System entry point
+   - `system/`. NixOS modules (services, packages, theming)
+   - `home/`. Home Manager modules (dotfiles, apps, WM config)
 5. Build with `nrb` (or `sudo nixos-rebuild switch --flake .#alice`)
 
 ## How It Works
@@ -79,7 +79,7 @@ modules = [
 
 nixos-shimboot handles ChromeOS-specific constraints (initScript boot, single-partition layout, patched systemd). This repo handles everything else.
 
-Home Manager is configured as a NixOS module — there is no standalone `home-manager switch` command. All dotfile changes are applied via `nrb`.
+Home Manager is configured as a NixOS module. . There is no standalone `home-manager switch` command. All dotfile changes are applied via `nrb`.
 
 ## Building Shimboot Images
 
