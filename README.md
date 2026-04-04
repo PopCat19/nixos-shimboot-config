@@ -58,8 +58,6 @@ sudo nixos-rebuild switch --flake .#popcat19
 
 Home Manager is configured as a NixOS module — there is no standalone `home-manager switch` command. All dotfile changes are applied via `nixos-rebuild switch`.
 
-Home Manager is configured as a NixOS module — there is no standalone `home-manager switch` command. All dotfile changes are applied via `nixos-rebuild switch`.
-
 ### Create Your Own Config
 
 1. Fork this repo
