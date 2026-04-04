@@ -5,8 +5,8 @@ Personal ChromeOS desktop configuration for [nixos-shimboot](https://github.com/
 ## Prerequisites
 
 - NixOS system with flakes enabled
-- A Chromebook compatible with nixos-shimboot
-- The shimboot repo (imported automatically as a flake input)
+- A Chromebook compatible with shimboot
+- The nixos-shimboot repo (imported automatically as a flake input)
 
 ## Quick Start
 
@@ -38,7 +38,7 @@ home-manager switch --flake .#popcat19
 
 ### 4. First Boot
 
-After flashing a shimboot image and booting into NixOS:
+After flashing a nixos-shimboot image and booting into NixOS:
 
 ```bash
 # Clone this repo on the running system
@@ -63,7 +63,7 @@ sudo nixos-rebuild switch --flake .#popcat19
 
 ## How It Works
 
-This repo imports shimboot as a hardware module:
+This repo imports nixos-shimboot as a hardware module:
 
 ```nix
 # flake.nix
@@ -75,7 +75,7 @@ modules = [
 ];
 ```
 
-Shimboot handles ChromeOS-specific constraints (initScript boot, single-partition layout, patched systemd). This repo handles everything else.
+nixos-shimboot handles ChromeOS-specific constraints (initScript boot, single-partition layout, patched systemd). This repo handles everything else.
 
 ## Troubleshooting
 
@@ -95,9 +95,9 @@ nix flake check
 sudo nixos-rebuild switch --flake .#popcat19
 ```
 
-### Shimboot module not found
+### nixos-shimboot module not found
 
-Ensure the shimboot input is resolving correctly:
+Ensure the nixos-shimboot input is resolving correctly:
 
 ```bash
 nix flake metadata
@@ -119,4 +119,4 @@ cachix use shimboot-systemd-nixos
 - Add your own modules alongside the existing ones
 - Fork and customize for your own setup
 
-For more documentation, see the [shimboot repo](https://github.com/PopCat19/nixos-shimboot).
+For more documentation, see the [nixos-shimboot repo](https://github.com/PopCat19/nixos-shimboot).
