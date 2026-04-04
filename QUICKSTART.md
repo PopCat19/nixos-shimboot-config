@@ -29,12 +29,14 @@ git checkout popcat19
 ### 3. Build and Switch
 
 ```bash
-# Full system rebuild (NixOS + Home Manager)
-sudo nixos-rebuild switch --flake .#popcat19
+# Navigate to config dir (using nixos-shimboot's cdn abbreviation)
+cdn
 
-# Home Manager only (faster iteration on dotfiles)
-home-manager switch --flake .#popcat19
+# Full system rebuild (NixOS + Home Manager as a NixOS module)
+nrb
 ```
+
+`nrb` is shorthand for `nixos-rebuild-basic`, a fish function provided by nixos-shimboot that handles the rebuild with appropriate flags.
 
 ### 4. First Boot
 
@@ -47,7 +49,7 @@ cd nixos-shimboot-config
 git checkout popcat19
 
 # Apply your config
-sudo nixos-rebuild switch --flake .#popcat19
+nrb
 ```
 
 ## Create Your Own Config
@@ -59,7 +61,7 @@ sudo nixos-rebuild switch --flake .#popcat19
    - `configuration.nix` — system entry point
    - `system/` — NixOS modules (services, packages, theming)
    - `home/` — Home Manager modules (dotfiles, apps, WM config)
-5. Build with `sudo nixos-rebuild switch --flake .#alice`
+5. Build with `nrb` (or `sudo nixos-rebuild switch --flake .#alice`)
 
 ## How It Works
 
@@ -77,6 +79,21 @@ modules = [
 
 nixos-shimboot handles ChromeOS-specific constraints (initScript boot, single-partition layout, patched systemd). This repo handles everything else.
 
+Home Manager is configured as a NixOS module — there is no standalone `home-manager switch` command. All dotfile changes are applied via `nrb`.
+
+## Building Shimboot Images
+
+Building shimboot images requires Nix on Linux with sudo privileges (the assembly script uses loop mounts for partition manipulation). Docker/Podman builds are untested.
+
+```bash
+# Clone nixos-shimboot (the build system repo)
+git clone https://github.com/PopCat19/nixos-shimboot.git
+cd nixos-shimboot
+
+# Build minimal image
+sudo ./tools/build/assemble-final.sh --board dedede --rootfs minimal
+```
+
 ## Troubleshooting
 
 ### Flake input out of date
@@ -85,14 +102,14 @@ nixos-shimboot handles ChromeOS-specific constraints (initScript boot, single-pa
 nix flake update shimboot
 ```
 
-### Home Manager switch fails
+### Build fails
 
 ```bash
 # Check for syntax errors
 nix flake check
 
-# Rebuild full system instead
-sudo nixos-rebuild switch --flake .#popcat19
+# Rebuild full system
+nrb
 ```
 
 ### nixos-shimboot module not found
