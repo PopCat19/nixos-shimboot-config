@@ -1,0 +1,16 @@
+# Nix
+result
+result-*
+
+# Secrets
+secrets/
+*.age
+*.env
+
+# Editor
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store
