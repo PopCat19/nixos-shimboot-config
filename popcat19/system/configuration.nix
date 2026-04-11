@@ -11,6 +11,7 @@
 { ... }:
 {
   imports = [
+    ./environment.nix
     ./fonts.nix
     ./packages.nix
     ./services.nix
