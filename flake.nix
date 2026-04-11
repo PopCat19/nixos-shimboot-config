@@ -77,7 +77,10 @@
 
       profileUserConfigs = {
         main = mkUserConfig { username = "nixos-user"; };
-        popcat19 = mkUserConfig { username = "popcat19"; };
+        popcat19 = mkUserConfig {
+          username = "popcat19";
+          hostname = "nixos-shimboot0";
+        };
       };
 
       mkConfig =
