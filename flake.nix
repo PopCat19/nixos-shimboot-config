@@ -73,12 +73,18 @@
     let
       system = "x86_64-linux";
 
-      # User config from shimboot (shared hostname, username, etc.)
-      userConfig = import (shimboot + /shimboot_config/user-config.nix) { };
+      mkUserConfig = args: import (shimboot + /shimboot_config/user-config.nix) args;
 
-      # Helper to create a NixOS configuration from a profile directory
+      profileUserConfigs = {
+        main = mkUserConfig { username = "nixos-user"; };
+        popcat19 = mkUserConfig { username = "popcat19"; };
+      };
+
       mkConfig =
         profileName:
+        let
+          userConfig = profileUserConfigs.${profileName};
+        in
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
@@ -133,6 +139,7 @@
 
       # NixOS configurations — one per profile branch
       nixosConfigurations.main = mkConfig "main";
+      nixosConfigurations.popcat19 = mkConfig "popcat19";
 
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
     };
