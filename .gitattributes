@@ -1,2 +1,4 @@
 popcat19/** merge=ours
 flake.lock merge=theirs
+README.md merge=ours
+QUICKSTART.md merge=ours
