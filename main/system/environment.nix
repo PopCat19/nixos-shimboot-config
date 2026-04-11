@@ -6,7 +6,7 @@
 #
 # This module:
 # - Sets environment variables for default applications
-# - Configures WebKit compositing mode
+# - Sets config repo directory path
 { userConfig, ... }:
 {
   environment.variables = {
@@ -14,5 +14,6 @@
     TERMINAL = userConfig.defaultApps.terminal.command;
     FILE_MANAGER = userConfig.defaultApps.fileManager.package;
     WEBKIT_DISABLE_COMPOSITING_MODE = "1";
+    NIXOS_CONFIG_DIR = "$HOME/nixos-shimboot-config";
   };
 }
