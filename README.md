@@ -56,7 +56,8 @@ nixos-shimboot provides fish functions and abbreviations on all profiles:
 |----------|---------|
 | `nrb` | `nixos-rebuild switch` with kernel-appropriate flags |
 | `cdn` | `cd` to `$NIXOS_CONFIG_DIR` |
-| `cnup` | Update flake inputs and rebuild |
+| `cnup` | Lint, format, and validate flake (statix, deadnix, treefmt) |
+| `nixos-flake-update` | Update flake inputs with lock diff and backup |
 
 `NIXOS_CONFIG_DIR` is set to `$HOME/nixos-shimboot-config` by default.
 
