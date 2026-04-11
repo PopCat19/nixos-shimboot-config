@@ -45,7 +45,7 @@ nrb    # nixos-rebuild switch with appropriate flags
 5. Customize `alice/configuration.nix`, `alice/system/`, `alice/home/`
 6. Rebuild:
    ```bash
-   sudo nixos-rebuild switch --flake .#alice
+   nrb  # or: sudo nixos-rebuild switch --flake .#alice --option sandbox false on kernels <5.6
    ```
 
 ## Staying in Sync with main
