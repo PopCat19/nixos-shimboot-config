@@ -132,7 +132,6 @@
       inherit (shimboot) nixConfig;
 
       # NixOS configurations — one per profile branch
-      nixosConfigurations.popcat19 = mkConfig "popcat19";
       nixosConfigurations.main = mkConfig "main";
 
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
