@@ -87,7 +87,7 @@ nrb    # nixos-rebuild switch with appropriate flags
 
 - Only update `flake.lock` on `main` branch
 - Propagation CI carries lock updates to personal branches automatically
-- Never update lock directly on personal branches — causes merge conflicts
+- Never update lock directly on personal branches : causes merge conflicts
 
 ```bash
 git checkout main
