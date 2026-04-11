@@ -30,23 +30,72 @@ nrb    # nixos-rebuild switch with appropriate flags
 
 `nrb` automatically handles kernel sandbox flags for shim kernels <5.6.
 
-## Create Your Own Config
+## First Boot Checklist
 
-1. Fork this repo
-2. Create a branch named after yourself (e.g. `alice`)
-3. Copy `main/` as your profile starting point:
+1. Boot shimboot USB, login as `nixos-user`
+2. Clone config repo:
    ```bash
-   cp -r main/ alice/
+   git clone https://github.com/PopCat19/nixos-shimboot-config.git
+   cd nixos-shimboot-config
+   git checkout <your-branch>
    ```
-4. Add your profile to `flake.nix`:
+3. Rebuild from root shell:
+   ```bash
+   sudo -i
+   cd /home/nixos-user/nixos-shimboot-config
+   nixos-rebuild switch --flake .#<hostname> --option sandbox false
+   ```
+4. Reboot
+5. Rsync old home to new user:
+   ```bash
+   sudo rsync -av --ignore-existing --exclude='.cache' /home/nixos-user/ /home/<newuser>/
+   sudo chown -R $(id -u <newuser>):$(id -g <newuser>) /home/<newuser>/
+   ```
+
+## Adding a New Profile
+
+1. Create branch:
+   ```bash
+   git checkout main
+   git checkout -b <name>
+   ```
+2. Copy `main/` as starting point:
+   ```bash
+   cp -r main/ <name>/
+   ```
+3. Add to `flake.nix`:
    ```nix
-   nixosConfigurations.alice = mkConfig "alice";
+   profileUserConfigs = {
+     main = mkUserConfig { username = "nixos-user"; };
+     <name> = mkUserConfig { username = "<name>"; hostname = "<hostname>"; };
+   };
+
+   nixosConfigurations.<hostname> = mkConfig "<name>";
    ```
-5. Customize `alice/configuration.nix`, `alice/system/`, `alice/home/`
-6. Rebuild:
+4. Add `.gitattributes` guard on your branch:
    ```bash
-   nrb  # or: sudo nixos-rebuild switch --flake .#alice --option sandbox false on kernels <5.6
+   echo '<name>/** merge=ours' >> .gitattributes
+   echo 'flake.lock merge=theirs' >> .gitattributes
+   git config merge.ours.driver true
    ```
+5. Rebuild:
+   ```bash
+   sudo nixos-rebuild switch --flake .#<hostname>
+   ```
+
+## Flake Lock Rules
+
+- Only update `flake.lock` on `main` branch
+- Propagation CI carries lock updates to personal branches automatically
+- Never update lock directly on personal branches — causes merge conflicts
+
+```bash
+git checkout main
+nix flake update shimboot
+git add flake.lock
+git commit -m "chore: update shimboot input"
+git push origin main
+```
 
 ## Staying in Sync with main
 
@@ -121,5 +170,24 @@ nix eval .#nixosConfigurations.<profile>.config.system.build.toplevel
 ```bash
 nix flake metadata
 ```
+
+### nrb fails — hostname not found
+Hostname in `nixosConfigurations` doesn't match system hostname. Use explicit target:
+```bash
+sudo nixos-rebuild switch --flake .#<attr>
+```
+
+### NIXOS_CONFIG_DIR points to wrong directory
+`environment.nix` not imported. Add to `<profile>/system/configuration.nix`:
+```nix
+imports = [ ./environment.nix ];
+```
+
+### OOM during rebuild
+Add to shimboot `nix-options.nix`:
+```nix
+nix.settings.max-jobs = 1;
+```
+Serializes builds — prevents multiple compilers competing for RAM.
 
 For more documentation, see the [nixos-shimboot repo](https://github.com/PopCat19/nixos-shimboot).
