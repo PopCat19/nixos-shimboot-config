@@ -90,28 +90,25 @@
 
             # Home Manager integration
             home-manager.nixosModules.home-manager
-            (
-              { pkgs, ... }:
-              {
-                home-manager.useGlobalPkgs = false;
-                home-manager.useUserPackages = true;
-                home-manager.extraSpecialArgs = {
-                  inherit
-                    userConfig
-                    zen-browser
-                    rose-pine-hyprcursor
-                    pmd
-                    ;
-                  inherit (self) inputs;
-                };
-                home-manager.sharedModules = [
-                  (_: {
-                    nixpkgs.config.allowUnfree = true;
-                  })
-                ];
-                home-manager.users."${userConfig.user.username}" = import ./${profileName}/home/home.nix;
-              }
-            )
+            (_: {
+              home-manager.useGlobalPkgs = false;
+              home-manager.useUserPackages = true;
+              home-manager.extraSpecialArgs = {
+                inherit
+                  userConfig
+                  zen-browser
+                  rose-pine-hyprcursor
+                  pmd
+                  ;
+                inherit (self) inputs;
+              };
+              home-manager.sharedModules = [
+                (_: {
+                  nixpkgs.config.allowUnfree = true;
+                })
+              ];
+              home-manager.users."${userConfig.user.username}" = import ./${profileName}/home/home.nix;
+            })
 
             # Serial console for ChromeOS debugging
             (_: {
