@@ -70,6 +70,29 @@ sudo ./tools/build/assemble-final.sh --board <board> --rootfs minimal
 
 Supported boards: dedede, octopus, zork, nissa, hatch, grunt, snappy
 
+## Migrating from nixos-shimboot (username change)
+
+If switching from the default `nixos-user` to a personal username:
+
+**Always rebuild from a root shell.** Active user sessions break when NixOS removes the old user mid-rebuild.
+
+```bash
+# From a root shell or physical console:
+sudo -i
+cd /home/nixos-user/nixos-shimboot-config
+nixos-rebuild switch --flake .#<profile>
+reboot
+```
+
+After reboot, migrate home data manually:
+
+```bash
+sudo rsync -av --ignore-existing --exclude='.cache' /home/nixos-user/ /home/<newuser>/
+sudo chown -R $(id -u <newuser>):$(id -g <newuser>) /home/<newuser>/
+```
+
+`migrate-from-shimboot.sh` handles pre-rebuild steps (user rename, config dir rename). Run it before rebuilding, not after.
+
 ## Troubleshooting
 
 ### Flake input out of date
