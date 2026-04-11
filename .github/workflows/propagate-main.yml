@@ -1,0 +1,53 @@
+name: Propagate main
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "Target branch"
+        required: true
+        default: "popcat19"
+
+jobs:
+  propagate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        branch: >-
+          ${{
+            github.event_name == 'push'
+              && fromJSON('["popcat19"]')
+              || fromJSON(format('["{0}"]', github.event.inputs.target))
+          }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: merge main into ${{ matrix.branch }}
+        id: merge
+        run: |
+          git checkout ${{ matrix.branch }}
+          git merge origin/main \
+            --no-edit \
+            -m "chore(sync): merge main into ${{ matrix.branch }} [skip ci]"
+
+      - name: push
+        if: steps.merge.outcome == 'success'
+        run: git push origin ${{ matrix.branch }}
+
+      - name: report conflict
+        if: failure()
+        run: |
+          echo "::error::Merge conflict on ${{ matrix.branch }} — resolve manually"
+          echo "::notice::Run: git checkout ${{ matrix.branch }} && git merge origin/main"
+          exit 1
