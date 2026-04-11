@@ -36,7 +36,7 @@ jobs:
       - name: merge main into ${{ matrix.branch }}
         id: merge
         run: |
-          git checkout ${{ matrix.branch }}
+          git checkout --track origin/${{ matrix.branch }}
           git merge origin/main \
             --no-edit \
             -m "chore(sync): merge main into ${{ matrix.branch }} [skip ci]"
