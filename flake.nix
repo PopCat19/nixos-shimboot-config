@@ -142,7 +142,7 @@
 
       # NixOS configurations — one per profile branch
       nixosConfigurations.main = mkConfig "main";
-      nixosConfigurations.popcat19 = mkConfig "popcat19";
+      nixosConfigurations.nixos-shimboot0 = mkConfig "popcat19";
 
       formatter.${system} = nixpkgs.legacyPackages.${system}.nixfmt-tree;
     };
