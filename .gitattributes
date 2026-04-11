@@ -1,0 +1,4 @@
+popcat19/** merge=ours
+flake.lock merge=theirs
+README.md merge=theirs
+QUICKSTART.md merge=ours
