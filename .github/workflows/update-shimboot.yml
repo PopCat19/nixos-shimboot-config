@@ -1,0 +1,36 @@
+# update-shimboot.yml
+#
+# Purpose: Manually trigger shimboot input update
+# Triggers: workflow_dispatch (manual only)
+#
+# This workflow:
+# - Updates the shimboot flake input on-demand
+# - Avoids auto-update drift between CI and real hardware
+# - Requires manual approval before pulling shimboot changes
+name: Update shimboot input
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            experimental-features = nix-command flakes
+            accept-flake-config = true
+
+      - run: nix flake update shimboot
+
+      - run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add flake.lock
+          git diff --cached --quiet || git commit -m "chore: update shimboot input [skip ci]"
+          git push origin main
