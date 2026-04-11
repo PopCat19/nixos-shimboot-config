@@ -33,20 +33,25 @@ nrb    # nixos-rebuild switch with appropriate flags
 ## First Boot Checklist
 
 1. Boot shimboot USB, login as `nixos-user`
-2. Clone config repo:
+2. Run base setup (WiFi, rootfs expansion, `/etc/nixos` wiring):
+   ```bash
+   setup-nixos
+   ```
+   Skip steps you've already completed with `--skip-wifi`, `--skip-expand`, etc.
+3. Clone config repo:
    ```bash
    git clone https://github.com/PopCat19/nixos-shimboot-config.git
    cd nixos-shimboot-config
    git checkout <your-branch>
    ```
-3. Rebuild from root shell:
+4. Rebuild from root shell:
    ```bash
    sudo -i
    cd /home/nixos-user/nixos-shimboot-config
    nixos-rebuild switch --flake .#<hostname> --option sandbox false
    ```
-4. Reboot
-5. Rsync old home to new user:
+5. Reboot
+6. Rsync old home to new user:
    ```bash
    sudo rsync -av --ignore-existing --exclude='.cache' /home/nixos-user/ /home/<newuser>/
    sudo chown -R $(id -u <newuser>):$(id -g <newuser>) /home/<newuser>/
