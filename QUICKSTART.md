@@ -114,6 +114,19 @@ sudo rsync -av --ignore-existing --exclude='.cache' /home/nixos-user/ /home/<new
 sudo chown -R $(id -u <newuser>):$(id -g <newuser>) /home/<newuser>/
 ```
 
+## Renaming hostname
+
+1. Update `flake.nix`:
+   - Set `hostname` in `profileUserConfigs`
+   - Rename `nixosConfigurations.<attr>` to match new hostname
+
+2. First rebuild requires explicit target (old hostname still active):
+   ```bash
+   sudo nixos-rebuild switch --flake .#<new-hostname>
+   ```
+
+3. After reboot `nrb` resolves automatically by hostname.
+
 ## Troubleshooting
 
 ### Flake input out of date
