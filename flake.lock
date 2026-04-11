@@ -384,11 +384,11 @@
         "nixpkgs-systemd": "nixpkgs-systemd"
       },
       "locked": {
-        "lastModified": 1775298402,
-        "narHash": "sha256-WskxXGBcmzFtvYcaudskTyPqx8DEtR0QwGS4oRr3ILs=",
+        "lastModified": 1775894691,
+        "narHash": "sha256-UB6d9ElegeLFyaqf3HShTjwB53oDSYwUoNr80V8NJtw=",
         "owner": "PopCat19",
         "repo": "nixos-shimboot",
-        "rev": "fe986f5d76eca1dd78ea67488304bd9788c708d5",
+        "rev": "cdcfba1ec3cdd6803dc485dc70d18f09fb981ba8",
         "type": "github"
       },
       "original": {
