@@ -1,13 +1,6 @@
-# Home Manager Configuration Module
+# home.nix
 #
 # Purpose: Main Home Manager configuration combining all user modules
-# Dependencies: All home modules, hypr_config modules
-# Related: configuration.nix, user-config.nix
-#
-# This module:
-# - Imports all Home Manager modules
-# - Configures desktop environment
-# - Sets Home Manager state version
 { ... }:
 {
   imports = [

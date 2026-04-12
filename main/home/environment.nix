@@ -3,33 +3,27 @@
   ...
 }:
 {
-  # **ENVIRONMENT & MIME CONFIG**
-  # Defines user-specific environment variables and default applications.
   home.sessionVariables = {
-    EDITOR = userConfig.defaultApps.editor.command; # Default terminal editor.
-    VISUAL = userConfig.defaultApps.editor.command; # Visual editor alias.
-    BROWSER = userConfig.defaultApps.browser.command; # Default web browser.
+    EDITOR = userConfig.defaultApps.editor.command;
+    VISUAL = userConfig.defaultApps.editor.command;
+    BROWSER = userConfig.defaultApps.browser.command;
     TERMINAL = userConfig.defaultApps.terminal.command;
     FILE_MANAGER = userConfig.defaultApps.fileManager.command;
-    # Ensure thumbnails work properly
+    # Required: compositing causes blank thumbnails on ChromeOS kernel
     WEBKIT_DISABLE_COMPOSITING_MODE = "1";
 
-    # GTK/scale defaults
     GDK_SCALE = "1";
 
-    # NixOS configuration paths
     inherit (userConfig.env) NIXOS_CONFIG_DIR;
     NIXOS_CONFIG_PATH = "${userConfig.env.NIXOS_CONFIG_DIR}/shimboot_config";
   };
 
-  # Add local bin to PATH
   home.sessionPath = [
     "$HOME/.local/bin"
     "$HOME/.npm-global/bin"
     "$HOME/bin"
   ];
 
-  # Default applications for MIME types
   xdg.mimeApps = {
     enable = true;
     defaultApplications =
