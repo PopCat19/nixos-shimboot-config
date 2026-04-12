@@ -1,4 +1,6 @@
 popcat19/** merge=ours
 flake.lock merge=theirs
 README.md merge=theirs
-QUICKSTART.md merge=theirs
+QUICKSTART.md merge=ours
+flake.nix merge=ours
+flake-modules/nixos.nix merge=ours

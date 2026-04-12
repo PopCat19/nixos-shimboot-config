@@ -52,16 +52,77 @@ git checkout popcat19
 nrb
 ```
 
-## Create Your Own Config
+## First Boot Checklist
 
-1. Fork this repo
-2. Create a branch with your name (e.g., `alice`)
-3. Copy structure from `main/` as reference
-4. Customize:
-   - `configuration.nix`. . System entry point
-   - `system/`. NixOS modules (services, packages, theming)
-   - `home/`. Home Manager modules (dotfiles, apps, WM config)
-5. Build with `nrb` (or `sudo nixos-rebuild switch --flake .#alice`)
+1. Boot shimboot USB, login as `nixos-user`
+2. Run base setup (WiFi, rootfs expansion, `/etc/nixos` wiring):
+   ```bash
+   setup-nixos
+   ```
+   Skip steps you've already completed with `--skip-wifi`, `--skip-expand`, etc.
+3. Clone config repo:
+   ```bash
+   git clone https://github.com/PopCat19/nixos-shimboot-config.git
+   cd nixos-shimboot-config
+   git checkout <your-branch>
+   ```
+4. Rebuild from root shell:
+   ```bash
+   sudo -i
+   cd /home/nixos-user/nixos-shimboot-config
+   nixos-rebuild switch --flake .#<hostname> --option sandbox false
+   ```
+5. Reboot
+6. Rsync old home to new user:
+   ```bash
+   sudo rsync -av --ignore-existing --exclude='.cache' /home/nixos-user/ /home/<newuser>/
+   sudo chown -R $(id -u <newuser>):$(id -g <newuser>) /home/<newuser>/
+   ```
+
+## Adding a New Profile
+
+1. Create branch:
+   ```bash
+   git checkout main
+   git checkout -b <name>
+   ```
+2. Copy `main/` as starting point:
+   ```bash
+   cp -r main/ <name>/
+   ```
+3. Add to `flake.nix`:
+   ```nix
+   profileUserConfigs = {
+     main = mkUserConfig { username = "nixos-user"; };
+     <name> = mkUserConfig { username = "<name>"; hostname = "<hostname>"; };
+   };
+
+   nixosConfigurations.<hostname> = mkConfig "<name>";
+   ```
+4. Add `.gitattributes` guard on your branch:
+   ```bash
+   echo '<name>/** merge=ours' >> .gitattributes
+   echo 'flake.lock merge=theirs' >> .gitattributes
+   git config merge.ours.driver true
+   ```
+5. Rebuild:
+   ```bash
+   sudo nixos-rebuild switch --flake .#<hostname>
+   ```
+
+## Flake Lock Rules
+
+- Only update `flake.lock` on `main` branch
+- Propagation CI carries lock updates to personal branches automatically
+- Never update lock directly on personal branches : causes merge conflicts
+
+```bash
+git checkout main
+nix flake update shimboot
+git add flake.lock
+git commit -m "chore: update shimboot input"
+git push origin main
+```
 
 ## How It Works
 
@@ -153,20 +214,23 @@ Ensure the nixos-shimboot input is resolving correctly:
 nix flake metadata
 ```
 
-### Build takes too long
-
-Enable the Cachix binary cache for faster builds:
-
+### nrb fails — hostname not found
+Hostname in `nixosConfigurations` doesn't match system hostname. Use explicit target:
 ```bash
-nix profile install nixpkgs#cachix
-cachix use shimboot-systemd-nixos
+sudo nixos-rebuild switch --flake .#<attr>
 ```
 
-## Next Steps
+### NIXOS_CONFIG_DIR points to wrong directory
+`environment.nix` not imported. Add to `<profile>/system/configuration.nix`:
+```nix
+imports = [ ./environment.nix ];
+```
 
-- Explore `system/` modules for NixOS configuration
-- Explore `home/` modules for Home Manager dotfiles
-- Add your own modules alongside the existing ones
-- Fork and customize for your own setup
+### OOM during rebuild
+Add to shimboot `nix-options.nix`:
+```nix
+nix.settings.max-jobs = "1";
+```
+Serializes builds — prevents multiple compilers competing for RAM.
 
 For more documentation, see the [nixos-shimboot repo](https://github.com/PopCat19/nixos-shimboot).
