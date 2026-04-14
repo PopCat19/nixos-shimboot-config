@@ -24,5 +24,7 @@
     nixfmt-tree
     statix
     deadnix
+    opencode
+    ranger
   ];
 }
