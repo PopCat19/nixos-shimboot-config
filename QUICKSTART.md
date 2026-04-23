@@ -17,13 +17,7 @@ git clone https://github.com/PopCat19/nixos-shimboot-config.git
 cd nixos-shimboot-config
 ```
 
-### 2. Choose Your Branch
-
-- Single config (no branch switching needed)
-
-
-
-### 3. Build and Switch
+### 2. Build and Switch
 
 ```bash
 # Navigate to config dir (using nixos-shimboot's cdn abbreviation)
@@ -35,7 +29,7 @@ nrb
 
 `nrb` is shorthand for `nixos-rebuild-basic`, a fish function provided by nixos-shimboot that handles the rebuild with appropriate flags.
 
-### 4. First Boot
+### 3. First Boot
 
 After flashing a nixos-shimboot image and booting into NixOS:
 
@@ -65,18 +59,9 @@ nrb
    ```bash
    sudo -i
    cd /home/nixos-user/nixos-shimboot-config
-   nixos-rebuild switch --flake .#<hostname> --option sandbox false
+   nixos-rebuild switch --flake .#nixos-shimboot0 --option sandbox false
    ```
 5. Reboot
-6. Rsync old home to new user:
-   ```bash
-   sudo rsync -av --ignore-existing --exclude='.cache' /home/nixos-user/ /home/<newuser>/
-   sudo chown -R $(id -u <newuser>):$(id -g <newuser>) /home/<newuser>/
-   ```
-
-
-
-
 
 ## How It Works
 
@@ -109,39 +94,6 @@ cd nixos-shimboot
 sudo ./tools/build/assemble-final.sh --board dedede --rootfs minimal
 ```
 
-## Migrating from nixos-shimboot (username change)
-
-**Always rebuild from a root shell.** Active user sessions break when NixOS removes the old user mid-rebuild.
-
-```bash
-sudo -i
-cd /home/nixos-user/nixos-shimboot-config
-# use nrb if fish is available, handles kernel sandbox flags automatically
-nrb
-# fallback for kernels <5.6 without nrb:
-# nixos-rebuild switch --flake .#<profile> --option sandbox false
-```
-
-After reboot, migrate home data manually:
-
-```bash
-sudo rsync -av --ignore-existing --exclude='.cache' /home/nixos-user/ /home/<newuser>/
-sudo chown -R $(id -u <newuser>):$(id -g <newuser>) /home/<newuser>/
-```
-
-## Renaming hostname
-
-1. Update `flake.nix`:
-   - Set `hostname` in `profileUserConfigs`
-   - Rename `nixosConfigurations.<attr>` to match new hostname
-
-2. First rebuild requires explicit target (old hostname still active):
-   ```bash
-   sudo nixos-rebuild switch --flake .#<new-hostname>
-   ```
-
-3. After reboot `nrb` resolves automatically by hostname.
-
 ## Troubleshooting
 
 ### Flake input out of date
@@ -169,15 +121,14 @@ nix flake metadata
 ```
 
 ### nrb fails — hostname not found
-Hostname in `nixosConfigurations` doesn't match system hostname. Use explicit target:
+
+Use explicit target:
 ```bash
-sudo nixos-rebuild switch --flake .#<attr>
+sudo nixos-rebuild switch --flake .#nixos-shimboot0
 ```
 
-### NIXOS_CONFIG_DIR points to wrong directory
-
-
 ### OOM during rebuild
+
 Add to shimboot `nix-options.nix`:
 ```nix
 nix.settings.max-jobs = "1";

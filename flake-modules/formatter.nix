@@ -4,8 +4,7 @@
 #
 # This module:
 # - Configures per-system formatter output
-{ ... }:
-{
+_: {
   perSystem =
     { pkgs, ... }:
     {
