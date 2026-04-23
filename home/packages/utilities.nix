@@ -24,7 +24,7 @@
     nixfmt-tree
     statix
     deadnix
-    opencode
+    pi-coding-agent
     ranger
   ];
 }
