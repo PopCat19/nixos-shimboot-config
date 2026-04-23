@@ -8,7 +8,7 @@
 # - Imports all Home Manager modules
 # - Configures desktop environment
 # - Sets Home Manager state version
-{ ... }:
+{ config, ... }:
 {
   imports = [
     ./hypr_config/hyprland.nix
@@ -32,6 +32,8 @@
     ./wallpaper.nix
     ./programs.nix
   ];
+
+  gtk.gtk4.theme = config.gtk.theme; # keep legacy default (stateVersion < 26.05)
 
   home.stateVersion = "24.11";
 }

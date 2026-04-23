@@ -6,7 +6,6 @@
 # This workflow:
 # - Updates the shimboot flake input on-demand
 # - Avoids auto-update drift between CI and real hardware
-# - Requires manual approval before pulling shimboot changes
 name: Update shimboot input
 
 on:
@@ -33,4 +32,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add flake.lock
           git diff --cached --quiet || git commit -m "chore: update shimboot input [skip ci]"
-          git push origin main
+          git push origin HEAD:${{ github.ref }}

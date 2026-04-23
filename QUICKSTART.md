@@ -19,12 +19,9 @@ cd nixos-shimboot-config
 
 ### 2. Choose Your Branch
 
-- `popcat19`. . Personal desktop config (Hyprland, theming, applications)
-- `main`. . Reference template for creating your own config
+- Single config (no branch switching needed)
 
-```bash
-git checkout popcat19
-```
+
 
 ### 3. Build and Switch
 
@@ -46,7 +43,6 @@ After flashing a nixos-shimboot image and booting into NixOS:
 # Clone this repo on the running system
 git clone https://github.com/PopCat19/nixos-shimboot-config.git
 cd nixos-shimboot-config
-git checkout popcat19
 
 # Apply your config
 nrb
@@ -64,7 +60,6 @@ nrb
    ```bash
    git clone https://github.com/PopCat19/nixos-shimboot-config.git
    cd nixos-shimboot-config
-   git checkout <your-branch>
    ```
 4. Rebuild from root shell:
    ```bash
@@ -79,50 +74,9 @@ nrb
    sudo chown -R $(id -u <newuser>):$(id -g <newuser>) /home/<newuser>/
    ```
 
-## Adding a New Profile
 
-1. Create branch:
-   ```bash
-   git checkout main
-   git checkout -b <name>
-   ```
-2. Copy `main/` as starting point:
-   ```bash
-   cp -r main/ <name>/
-   ```
-3. Add to `flake.nix`:
-   ```nix
-   profileUserConfigs = {
-     main = mkUserConfig { username = "nixos-user"; };
-     <name> = mkUserConfig { username = "<name>"; hostname = "<hostname>"; };
-   };
 
-   nixosConfigurations.<hostname> = mkConfig "<name>";
-   ```
-4. Add `.gitattributes` guard on your branch:
-   ```bash
-   echo '<name>/** merge=ours' >> .gitattributes
-   echo 'flake.lock merge=theirs' >> .gitattributes
-   git config merge.ours.driver true
-   ```
-5. Rebuild:
-   ```bash
-   sudo nixos-rebuild switch --flake .#<hostname>
-   ```
 
-## Flake Lock Rules
-
-- Only update `flake.lock` on `main` branch
-- Propagation CI carries lock updates to personal branches automatically
-- Never update lock directly on personal branches : causes merge conflicts
-
-```bash
-git checkout main
-nix flake update shimboot
-git add flake.lock
-git commit -m "chore: update shimboot input"
-git push origin main
-```
 
 ## How It Works
 
@@ -134,7 +88,7 @@ inputs.shimboot.url = "github:PopCat19/nixos-shimboot/dev";
 
 modules = [
   shimboot.nixosModules.chromeos    # ChromeOS HAL (boot, fs, hw)
-  ./popcat19/configuration.nix     # personal config (DE, packages, HM)
+  ./configuration.nix              # personal config (DE, packages, HM)
 ];
 ```
 
@@ -221,10 +175,7 @@ sudo nixos-rebuild switch --flake .#<attr>
 ```
 
 ### NIXOS_CONFIG_DIR points to wrong directory
-`environment.nix` not imported. Add to `<profile>/system/configuration.nix`:
-```nix
-imports = [ ./environment.nix ];
-```
+
 
 ### OOM during rebuild
 Add to shimboot `nix-options.nix`:

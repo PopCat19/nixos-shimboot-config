@@ -54,12 +54,11 @@ let
 in
 {
   flake = {
+    # nixConfig from shimboot: sets substituters for nix CLI
+    # Produces "unknown flake output" warning — upstream deprecation
     inherit (inputs.shimboot) nixConfig;
-    nixosConfigurations.main = mkConfig "main" (mkUserConfig {
+    nixosConfigurations.nixos-shimboot0 = mkConfig "." (mkUserConfig {
       username = "nixos-user";
-    });
-    nixosConfigurations.nixos-shimboot0 = mkConfig "popcat19" (mkUserConfig {
-      username = "popcat19";
     });
   };
 }

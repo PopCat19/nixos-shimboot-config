@@ -27,14 +27,9 @@ This repo provides everything else: desktop environment, applications, theming, 
 nixos-shimboot-config/
 ├── flake.nix           # imports nixos-shimboot as flake input
 ├── flake.lock
-├── main/               # reference template (forkable)
-│   ├── configuration.nix
-│   ├── system/
-│   └── home/
-└── popcat19/           # personal desktop config
-    ├── configuration.nix
-    ├── system/
-    └── home/
+├── configuration.nix   # system configuration entry point
+├── system/             # NixOS system modules
+└── home/               # Home Manager modules
 ```
 
 ## Quick Start
@@ -50,10 +45,9 @@ nixos-shimboot-config/
 ```bash
 git clone https://github.com/PopCat19/nixos-shimboot-config.git
 cd nixos-shimboot-config
-git checkout popcat19  # or main for reference template
 
 # Full system rebuild (NixOS + Home Manager as a NixOS module)
-sudo nixos-rebuild switch --flake .#popcat19
+sudo nixos-rebuild switch --flake .#nixos-shimboot0
 ```
 
 Home Manager is configured as a NixOS module. . There is no standalone `home-manager switch` command. All dotfile changes are applied via `nixos-rebuild switch`.
@@ -61,10 +55,8 @@ Home Manager is configured as a NixOS module. . There is no standalone `home-man
 ### Create Your Own Config
 
 1. Fork this repo
-2. Create a branch with your name (e.g., `alice`)
-3. Copy structure from `main/` as reference
-4. Customize `configuration.nix`, `system/`, and `home/`
-5. Build with `sudo nixos-rebuild switch --flake .#alice`
+2. Customize `configuration.nix`, `system/`, and `home/`
+3. Build with `sudo nixos-rebuild switch --flake .#nixos-shimboot0`
 
 ## Architecture
 
@@ -77,7 +69,7 @@ inputs.shimboot.url = "github:PopCat19/nixos-shimboot/dev";
 # In nixosConfigurations:
 modules = [
   shimboot.nixosModules.chromeos    # ChromeOS HAL (boot, fs, hw)
-  ./popcat19/configuration.nix     # personal config (DE, packages, HM)
+  ./configuration.nix              # personal config (DE, packages, HM)
 ];
 ```
 
@@ -118,10 +110,9 @@ Core abbreviations `nrb` (nixos-rebuild-basic) and `cdn` (cd to config dir) are 
 
 | Path | Purpose |
 |------|---------|
-| `popcat19/configuration.nix` | System configuration entry point |
-| `popcat19/system/` | NixOS system modules (services, packages, theming) |
-| `popcat19/home/` | Home Manager modules (dotfiles, apps, hyprland config) |
-| `main/` | Reference template for users to fork |
+| `configuration.nix` | System configuration entry point |
+| `system/` | NixOS system modules (services, packages, theming) |
+| `home/` | Home Manager modules (dotfiles, apps, hyprland config) |
 
 ## Known Limitations
 
