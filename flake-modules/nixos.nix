@@ -57,7 +57,7 @@ in
     # nixConfig from shimboot: sets substituters for nix CLI
     # Produces "unknown flake output" warning — upstream deprecation
     inherit (inputs.shimboot) nixConfig;
-    nixosConfigurations.nixos-shimboot0 = mkConfig "." (mkUserConfig {
+    nixosConfigurations.nixos-shimboot = mkConfig "." (mkUserConfig {
       username = "nixos-user";
     });
   };

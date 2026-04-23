@@ -59,7 +59,7 @@ nrb
    ```bash
    sudo -i
    cd /home/nixos-user/nixos-shimboot-config
-   nixos-rebuild switch --flake .#nixos-shimboot0 --option sandbox false
+   nixos-rebuild switch --flake .#nixos-shimboot --option sandbox false
    ```
 5. Reboot
 
@@ -124,7 +124,7 @@ nix flake metadata
 
 Use explicit target:
 ```bash
-sudo nixos-rebuild switch --flake .#nixos-shimboot0
+sudo nixos-rebuild switch --flake .#nixos-shimboot
 ```
 
 ### OOM during rebuild
