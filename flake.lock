@@ -322,15 +322,16 @@
         "noctalia-qs": "noctalia-qs"
       },
       "locked": {
-        "lastModified": 1776240823,
-        "narHash": "sha256-QAdipw26rtLJWKY7EWX7k+pyvCQwF4+PObggxWbiT74=",
+        "lastModified": 1776239934,
+        "narHash": "sha256-oGMYWsP0qthxQisirZc/r/vpdGTZrInwkh75AC714AE=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "76b03be48965cb01faabe167f80a8995fb76a92e",
+        "rev": "d85ad414baffd12ea6cf4c88ae5def8e96ec3753",
         "type": "github"
       },
       "original": {
         "owner": "noctalia-dev",
+        "ref": "refs/tags/v4.7.6",
         "repo": "noctalia-shell",
         "type": "github"
       }
@@ -428,15 +429,16 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1748096947,
-        "narHash": "sha256-ouuA8LVBXzrbYwPW2vNjh7fC9H2UBud/1tUiIM5vPvM=",
+        "lastModified": 1711301557,
+        "narHash": "sha256-ArUX5qlqAXUqcRqHz4QxXy3KgkfasTPA/Qwf6D2kV0U=",
         "owner": "ndom91",
         "repo": "rose-pine-hyprcursor",
-        "rev": "4b02963d0baf0bee18725cf7c5762b3b3c1392f1",
+        "rev": "d2c0e6802f0ed1e7c638bb27b5aa8587b578d083",
         "type": "github"
       },
       "original": {
         "owner": "ndom91",
+        "ref": "refs/tags/v0.3.2",
         "repo": "rose-pine-hyprcursor",
         "type": "github"
       }

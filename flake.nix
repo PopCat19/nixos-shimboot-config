@@ -37,12 +37,12 @@
     };
 
     rose-pine-hyprcursor = {
-      url = "github:ndom91/rose-pine-hyprcursor";
+      url = "github:ndom91/rose-pine-hyprcursor?ref=refs/tags/v0.3.2";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+      url = "github:noctalia-dev/noctalia-shell?ref=refs/tags/v4.7.6";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
