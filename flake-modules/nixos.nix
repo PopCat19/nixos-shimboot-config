@@ -57,8 +57,11 @@ in
     # nixConfig from shimboot: sets substituters for nix CLI
     # Produces "unknown flake output" warning — upstream deprecation
     inherit (inputs.shimboot) nixConfig;
+
+    # Default configuration (dedede board)
     nixosConfigurations.nixos-shimboot = mkConfig "." (mkUserConfig {
       username = "nixos-user";
+      board = "dedede";  # Intel Jasper Lake
     });
   };
 }
