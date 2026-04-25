@@ -13,7 +13,7 @@ in
 {
   home.activation.cloneWallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p ${wallpapersDir}
-    for file in ${./wallpaper}/*; do
+    for file in ${../wallpaper}/*; do
       filename=$(basename "$file")
       if [ ! -e "${wallpapersDir}/$filename" ]; then
         cp -r "$file" "${wallpapersDir}/"
