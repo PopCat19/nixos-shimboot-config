@@ -10,6 +10,9 @@
 { userConfig, ... }:
 {
   environment.variables = {
+    # Override both NixOS default (mkDefault "nano") and shimboot default (mkDefault "micro")
+    EDITOR = userConfig.defaultApps.editor.command;
+    VISUAL = userConfig.defaultApps.editor.command;
     BROWSER = userConfig.defaultApps.browser.package;
     TERMINAL = userConfig.defaultApps.terminal.command;
     FILE_MANAGER = userConfig.defaultApps.fileManager.package;
