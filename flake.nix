@@ -9,15 +9,6 @@
 {
   description = "ChromeOS desktop configuration for nixos-shimboot";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://hyprland.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
@@ -46,13 +37,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    rose-pine-hyprcursor = {
-      url = "github:ndom91/rose-pine-hyprcursor?ref=refs/tags/v0.3.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     noctalia = {
-      url = "github:noctalia-dev/noctalia-shell?ref=refs/tags/v4.7.6";
+      url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
