@@ -29,7 +29,5 @@
   environment.sessionVariables.NIXOS_CONFIG_DIR = lib.mkForce userConfig.env.NIXOS_CONFIG_DIR;
 
   # Home Manager configuration
-  home-manager.users.${userConfig.username} = {
-    imports = [ ../home/modules ];
-  };
+  home-manager.users.${userConfig.username} = import ../home/home.nix;
 }
