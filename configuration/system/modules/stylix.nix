@@ -1,16 +1,14 @@
-# Stylix System Module
+# stylix.nix
 #
 # Purpose: Import Stylix NixOS module for system-level theming
-# Dependencies: stylix (flake input)
-# Related: greeter.nix, ../home/stylix.nix
 #
 # This module:
 # - Imports Stylix NixOS module
 # - Provides system-level theming framework
 # - Works alongside home-level Stylix configuration
-{ stylix, ... }:
+{ inputs, ... }:
 {
   imports = [
-    stylix.nixosModules.stylix
+    inputs.stylix.nixosModules.stylix
   ];
 }

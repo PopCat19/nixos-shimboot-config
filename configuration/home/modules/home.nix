@@ -9,9 +9,9 @@
 { config, ... }:
 {
   imports = [
-    ./hypr_config/hyprland.nix
-    ./noctalia_config/noctalia.nix
-    ./hypr_config/hypr-packages.nix
+    ./../hypr_config/hyprland.nix
+    ./../noctalia_config/noctalia.nix
+    ./../hypr_config/hypr-packages.nix
     ./kitty.nix
 
     ./environment.nix
@@ -27,14 +27,14 @@
     ./micro.nix
     ./privacy.nix
     ./stylix.nix
-    ./wallpaper.nix
     ./programs.nix
     ./starship.nix
     ./home-files.nix
     ./systemd-services.nix
+    ./wallpaper.nix
   ];
 
-  gtk.gtk4.theme = config.gtk.theme; # keep legacy default (stateVersion < 26.05)
+  gtk.gtk4.theme = config.gtk.theme;
 
   home.stateVersion = "24.11";
 }

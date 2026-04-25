@@ -1,8 +1,6 @@
-# Packages Module
+# packages.nix
 #
 # Purpose: Import all package category modules
-# Dependencies: All packages/ submodules
-# Related: home.nix
 #
 # This module:
 # - Imports package category modules
@@ -10,7 +8,7 @@
 { ... }:
 {
   imports = [
-    ./packages/media.nix
-    ./packages/utilities.nix
+    ../packages/media.nix
+    ../packages/utilities.nix
   ];
 }

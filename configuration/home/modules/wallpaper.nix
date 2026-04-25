@@ -1,8 +1,6 @@
-# Wallpaper Module
+# wallpaper.nix
 #
 # Purpose: Soft-clone wallpapers to user directory for Noctalia
-# Dependencies: None
-# Related: noctalia_config/settings.nix
 #
 # This module:
 # - Creates ~/Pictures/Wallpapers directory

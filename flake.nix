@@ -1,12 +1,22 @@
 # flake.nix
 #
-# Purpose: Personal ChromeOS desktop config for nixos-shimboot
+# Purpose: Main flake entry point for nixos-shimboot-config
 #
 # This module:
 # - Uses flake-parts for modular flake configuration
 # - Imports flake modules from ./flake-modules/
+# - Auto-discovers hosts from configuration/hosts/
 {
-  description = "Personal ChromeOS desktop config for nixos-shimboot";
+  description = "ChromeOS desktop configuration for nixos-shimboot";
+
+  nixConfig = {
+    extra-substituters = [
+      "https://hyprland.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+    ];
+  };
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -58,12 +68,9 @@
   };
 
   outputs =
-    inputs@{ flake-parts, ... }:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
-      imports = [
-        ./flake-modules/nixos.nix
-        ./flake-modules/formatter.nix
-      ];
+      imports = [ ./flake-modules ];
     };
 }
