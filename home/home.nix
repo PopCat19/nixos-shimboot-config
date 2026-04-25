@@ -1,8 +1,6 @@
-# Home Manager Configuration Module
+# home.nix
 #
 # Purpose: Main Home Manager configuration combining all user modules
-# Dependencies: All home modules, hypr_config modules
-# Related: configuration.nix, user-config.nix
 #
 # This module:
 # - Imports all Home Manager modules
@@ -31,6 +29,9 @@
     ./stylix.nix
     ./wallpaper.nix
     ./programs.nix
+    ./starship.nix
+    ./home-files.nix
+    ./systemd-services.nix
   ];
 
   gtk.gtk4.theme = config.gtk.theme; # keep legacy default (stateVersion < 26.05)
