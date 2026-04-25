@@ -5,7 +5,7 @@
 # This profile:
 # - Imports shimboot chromeos base configuration
 # - Configures system modules not included in base
-# - Sets up home-manager with default modules
+# - Delegates home-manager to mk-host.nix
 { lib, userConfig, inputs, ... }:
 {
   imports = [
@@ -27,7 +27,4 @@
 
   # Override NIXOS_CONFIG_DIR for this repo
   environment.sessionVariables.NIXOS_CONFIG_DIR = lib.mkForce userConfig.env.NIXOS_CONFIG_DIR;
-
-  # Home Manager configuration
-  home-manager.users.${userConfig.username} = import ../home/home.nix;
 }
