@@ -1,8 +1,6 @@
-# Bookmarks Configuration Module
+# bookmarks.nix
 #
 # Purpose: Configure file manager bookmarks for GTK and Dolphin
-# Dependencies: userConfig
-# Related: dolphin.nix
 #
 # This module:
 # - Configures GTK bookmarks for file dialogs

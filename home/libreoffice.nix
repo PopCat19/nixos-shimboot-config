@@ -1,7 +1,6 @@
-# LibreOffice Module
+# libreoffice.nix
 #
 # Purpose: Configure LibreOffice office suite
-# Dependencies: None
 #
 # This module:
 # - Installs LibreOffice via home-manager packages
