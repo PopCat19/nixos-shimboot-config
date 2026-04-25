@@ -5,14 +5,12 @@
 # Related: home/environment.nix
 #
 # This module:
-# - Sets environment variables for default applications
-# - Sets config repo directory path
+# - Adds consumer-specific environment variables
+# - Overrides base config paths
+# - Defers EDITOR/VISUAL to base configuration
 { userConfig, ... }:
 {
   environment.variables = {
-    # Override both NixOS default (mkDefault "nano") and shimboot default (mkDefault "micro")
-    EDITOR = userConfig.defaultApps.editor.command;
-    VISUAL = userConfig.defaultApps.editor.command;
     BROWSER = userConfig.defaultApps.browser.package;
     TERMINAL = userConfig.defaultApps.terminal.command;
     FILE_MANAGER = userConfig.defaultApps.fileManager.package;
