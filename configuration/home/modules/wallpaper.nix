@@ -9,11 +9,12 @@
 { config, lib, ... }:
 let
   wallpapersDir = "${config.home.homeDirectory}/Pictures/Wallpapers";
+  wallpaperPath = toString ./../wallpaper;
 in
 {
   home.activation.cloneWallpapers = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     mkdir -p ${wallpapersDir}
-    for file in ${../wallpaper}/*; do
+    for file in ${wallpaperPath}/*; do
       filename=$(basename "$file")
       if [ ! -e "${wallpapersDir}/$filename" ]; then
         cp -r "$file" "${wallpapersDir}/"
