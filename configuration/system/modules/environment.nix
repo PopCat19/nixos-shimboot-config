@@ -1,13 +1,10 @@
-# Environment Variables Module
+# environment.nix
 #
-# Purpose: Configure system-wide environment variables for applications.
-# Dependencies: userConfig
-# Related: home/environment.nix
+# Purpose: Configure system-wide environment variables for applications
 #
 # This module:
-# - Adds consumer-specific environment variables
-# - Overrides base config paths
-# - Defers EDITOR/VISUAL to base configuration
+# - Sets consumer-specific environment variables
+# - Delegates config directory path to profiles
 { userConfig, ... }:
 {
   environment.variables = {
@@ -15,6 +12,6 @@
     TERMINAL = userConfig.defaultApps.terminal.command;
     FILE_MANAGER = userConfig.defaultApps.fileManager.package;
     WEBKIT_DISABLE_COMPOSITING_MODE = "1";
-    NIXOS_CONFIG_DIR = "$HOME/nixos-shimboot-config";
+    # NIXOS_CONFIG_DIR is set by profile (shimboot.nix)
   };
 }
