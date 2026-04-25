@@ -61,7 +61,7 @@ in
     # Default configuration (dedede board)
     nixosConfigurations.nixos-shimboot = mkConfig "." (mkUserConfig {
       username = "nixos-user";
-      board = "dedede";  # Intel Jasper Lake
+      board = "dedede"; # Intel Jasper Lake
     });
   };
 }
