@@ -33,7 +33,6 @@
               inherit inputs userConfig;
               inherit (inputs)
                 zen-browser
-                rose-pine-hyprcursor
                 pmd
                 nixvim
                 noctalia
