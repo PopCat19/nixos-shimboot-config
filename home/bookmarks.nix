@@ -22,7 +22,7 @@
     file://${userConfig.directories.videos} Videos
     file://${userConfig.directories.music} Music
     file://${userConfig.directories.desktop} Desktop
-    file://${userConfig.directories.home}/nixos-config nixos-config
+    file://${userConfig.directories.home}/nixos-shimboot-config nixos-shimboot-config
     trash:/// Trash
   '';
 
@@ -52,8 +52,8 @@
      <bookmark href="file:///home/${config.home.username}/Videos">
       <title>Videos</title>
      </bookmark>
-     <bookmark href="file:///home/${config.home.username}/nixos-config">
-      <title>nixos-config</title>
+     <bookmark href="file:///home/${config.home.username}/nixos-shimboot-config">
+      <title>nixos-shimboot-config</title>
      </bookmark>
      <bookmark href="trash:/">
       <title>Trash</title>
