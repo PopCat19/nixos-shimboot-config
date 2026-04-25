@@ -16,7 +16,8 @@ in
 {
   # Write settings to noctalia config
   xdg.configFile."noctalia/settings.json".source =
-    (pkgs.formats.json { }).generate "noctalia-settings" settings.settings;
+    (pkgs.formats.json { }).generate "noctalia-settings"
+      settings.settings;
 
   systemd.user.services.noctalia-shell = {
     Unit = {
