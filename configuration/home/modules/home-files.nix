@@ -9,12 +9,12 @@
 { config, ... }:
 {
   home.file.".config/hypr" = {
-    source = ./hypr_config;
+    source = ../hypr_config;
     recursive = true;
   };
 
   home.file."wallpaper" = {
-    source = ./wallpaper;
+    source = ../wallpaper;
     recursive = true;
   };
 
