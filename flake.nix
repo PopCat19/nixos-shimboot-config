@@ -47,6 +47,9 @@
     inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = [ "x86_64-linux" ];
-      imports = [ ./flake-modules ];
+      imports = [
+        ./flake-modules
+        ./flake-modules/cachix.nix
+      ];
     };
 }
