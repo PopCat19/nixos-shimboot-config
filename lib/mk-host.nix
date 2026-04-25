@@ -34,8 +34,6 @@
               inherit (inputs)
                 zen-browser
                 pmd
-                nixvim
-                noctalia
                 stylix
                 ;
             };
