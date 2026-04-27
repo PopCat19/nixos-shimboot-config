@@ -19,7 +19,9 @@
 
     # NixOS configuration paths
     inherit (userConfig.env) NIXOS_CONFIG_DIR;
-    NIXOS_CONFIG_PATH = "${userConfig.env.NIXOS_CONFIG_DIR}/shimboot_config";
+    # NIXOS_CONFIG_PATH points to the base shimboot_config directory
+    # (resides in nixos-shimboot, not in this companion repo)
+    NIXOS_CONFIG_PATH = "${userConfig.directories.home}/nixos-shimboot/shimboot_config";
   };
 
   # Add local bin to PATH
