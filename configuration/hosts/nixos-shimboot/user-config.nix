@@ -129,12 +129,9 @@ rec {
     variant = "dark";
   };
 
-  env =
-    let
-      repoName = "nixos-shimboot-config";
-    in
-    {
-      inherit repoName;
-      NIXOS_CONFIG_DIR = "${directories.home}/${repoName}";
-    };
+  # Environment configuration (computed inline since directories attr not accessible)
+  env = {
+    repoName = "nixos-shimboot-config";
+    NIXOS_CONFIG_DIR = "/home/${username}/nixos-shimboot-config";
+  };
 }
