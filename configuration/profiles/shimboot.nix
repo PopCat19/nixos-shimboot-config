@@ -14,6 +14,7 @@
 
     # System modules not in base
     ../system/modules/environment.nix
+    ../system/modules/fish.nix
     ../system/modules/fonts.nix
     ../system/modules/greeter.nix
     ../system/modules/packages.nix
