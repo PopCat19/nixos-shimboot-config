@@ -14,23 +14,25 @@
     type = "fcitx5";
     enable = true;
     fcitx5 = {
-      wayland = true;
       addons = with pkgs; [
         fcitx5-gtk
         fcitx5-mozc
       ];
-      settings = {
-        inputMethodGroups = [
-          {
-            name = "Default";
-            defaultLayout = "us";
-            defaultIM = "keyboard-us";
-            items = [
-              { name = "keyboard-us"; }
-              { name = "mozc"; }
-            ];
-          }
-        ];
+      settings.inputMethod = {
+        GroupOrder."0" = "Default";
+        "Groups/0" = {
+          Name = "Default";
+          "Default Layout" = "us";
+          DefaultIM = "keyboard-us";
+        };
+        "Groups/0/Items/0" = {
+          Name = "keyboard-us";
+          Layout = null;
+        };
+        "Groups/0/Items/1" = {
+          Name = "mozc";
+          Layout = null;
+        };
       };
     };
   };
