@@ -13,10 +13,26 @@
   i18n.inputMethod = {
     type = "fcitx5";
     enable = true;
-    fcitx5.addons = with pkgs; [
-      fcitx5-gtk
-      fcitx5-mozc
-    ];
+    fcitx5 = {
+      wayland = true;
+      addons = with pkgs; [
+        fcitx5-gtk
+        fcitx5-mozc
+      ];
+      settings = {
+        inputMethodGroups = [
+          {
+            name = "Default";
+            defaultLayout = "us";
+            defaultIM = "keyboard-us";
+            items = [
+              { name = "keyboard-us"; }
+              { name = "mozc"; }
+            ];
+          }
+        ];
+      };
+    };
   };
 
   home.sessionVariables = {
