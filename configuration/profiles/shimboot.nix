@@ -6,7 +6,12 @@
 # - Imports shimboot chromeos base configuration
 # - Configures system modules not included in base
 # - Delegates home-manager to mk-host.nix
-{ lib, userConfig, inputs, ... }:
+{
+  lib,
+  userConfig,
+  inputs,
+  ...
+}:
 {
   imports = [
     # Shimboot chromeos base configuration (includes boot, fs, hw, users, nix, display, services, audio, networking, hyprland, fish, fonts, power, xdg)

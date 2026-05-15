@@ -12,7 +12,6 @@
     _hostName: hostPath:
     let
       userConfig = import (hostPath + "/user-config.nix");
-      inherit (userConfig) system;
     in
     inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
