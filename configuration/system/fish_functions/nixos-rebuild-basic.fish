@@ -94,9 +94,9 @@ function nixos-rebuild-basic
         if test "$auto_mode" = true
             echo "[STEP] Rolling back to previous NixOS generation..."
             if test "$use_nh" = true
-                sudo $proxy_env nh os rollback --bypass-root-check
+                sudo nh os rollback --bypass-root-check
             else
-                sudo $proxy_env nixos-rebuild switch --rollback
+                sudo nixos-rebuild switch --rollback
             end
             if test $status -eq 0
                 echo "[SUCCESS] Rolled back to previous generation"
@@ -110,9 +110,9 @@ function nixos-rebuild-basic
         else
             set_color blue; echo "[STEP] Rolling back to previous NixOS generation..."; set_color normal
             if test "$use_nh" = true
-                sudo $proxy_env nh os rollback --bypass-root-check
+                sudo nh os rollback --bypass-root-check
             else
-                sudo $proxy_env nixos-rebuild switch --rollback
+                sudo nixos-rebuild switch --rollback
             end
             if test $status -eq 0
                 set_color green; echo "[SUCCESS] Rolled back to previous generation"; set_color normal
@@ -161,12 +161,20 @@ function nixos-rebuild-basic
     # Rebuild phase
     set -l flake_target (hostname)
 
+    # Ensure flake inputs are fetched into the store using the current user's proxy
+    # before switching to sudo, which prevents proxy variables from leaking into
+    # the build environment (critical when sandbox=false).
+    set_color blue; echo "[STEP] Warming up flake inputs..."; set_color normal
+    if not nix evaluate ".#nixosConfigurations.$flake_target" >/dev/null 2>&1
+        set_color yellow; echo "[INFO] Input fetch failed or flake is invalid; rebuild may still attempt to fetch."; set_color normal
+    end
+
     # Build arguments
     set -l rebuild_cmd
     set -l rebuild_args $action
 
     if test "$use_nh" = true
-        set rebuild_cmd sudo $proxy_env nh os
+        set rebuild_cmd sudo nh os
         set -a rebuild_args $NIXOS_CONFIG_DIR --hostname $flake_target --bypass-root-check
         
         # Pass extra flags (like --offline) to nix via --
@@ -174,7 +182,7 @@ function nixos-rebuild-basic
             set -a rebuild_args -- $extra_args
         end
     else
-        set rebuild_cmd sudo $proxy_env nixos-rebuild
+        set rebuild_cmd sudo nixos-rebuild
         set -a rebuild_args --flake $NIXOS_CONFIG_DIR#$flake_target
         
         if test -n "$extra_args"
