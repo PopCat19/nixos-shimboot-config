@@ -175,7 +175,7 @@ function nixos-rebuild-basic
     set -l rebuild_args $action
 
     if test "$use_nh" = true
-        set rebuild_cmd sudo nh os
+        set rebuild_cmd sudo $proxy_env nh os
         set -a rebuild_args $NIXOS_CONFIG_DIR --hostname $flake_target --bypass-root-check
         
         # Pass extra flags (like --offline) to nix via --
@@ -183,7 +183,7 @@ function nixos-rebuild-basic
             set -a rebuild_args -- $extra_args
         end
     else
-        set rebuild_cmd sudo nixos-rebuild
+        set rebuild_cmd sudo $proxy_env nixos-rebuild
         set -a rebuild_args --flake $NIXOS_CONFIG_DIR#$flake_target
         
         if test -n "$extra_args"
