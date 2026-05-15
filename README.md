@@ -1,8 +1,13 @@
+<!-- BEGIN fragment: 01-header.md -->
+
 # NixOS Shimboot Config
 
 Personal ChromeOS desktop configuration for [nixos-shimboot](https://github.com/PopCat19/nixos-shimboot).
 
-## What is this?
+<!-- END fragment: 01-header.md -->
+<!-- BEGIN fragment: 02-introduction.md -->
+<details>
+<summary>What is this?</summary>
 
 This repo contains desktop configurations that layer on top of nixos-shimboot — a NixOS-based derivative of [ading2210/shimboot](https://github.com/ading2210/shimboot).
 
@@ -21,7 +26,11 @@ nixos-shimboot provides:
 
 This repo provides everything else: desktop environment, applications, theming, and Home Manager dotfiles.
 
-## Structure
+</details>
+<!-- END fragment: 02-introduction.md -->
+<!-- BEGIN fragment: 03-structure.md -->
+<details>
+<summary>Structure</summary>
 
 ```
 nixos-shimboot-config/
@@ -31,6 +40,10 @@ nixos-shimboot-config/
 ├── system/             # NixOS system modules
 └── home/               # Home Manager modules
 ```
+
+</details>
+<!-- END fragment: 03-structure.md -->
+<!-- BEGIN fragment: 04-quickstart.md -->
 
 ## Quick Start
 
@@ -59,7 +72,10 @@ Home Manager is configured as a NixOS module. There is no standalone `home-manag
 3. Update `flake-modules/nixos.nix` with your preferred `username`
 4. Build with `sudo nixos-rebuild switch --flake .#nixos-shimboot`
 
-## Architecture
+<!-- END fragment: 04-quickstart.md -->
+<!-- BEGIN fragment: 05-architecture.md -->
+<details>
+<summary>Architecture</summary>
 
 This repo imports nixos-shimboot as a hardware module:
 
@@ -76,7 +92,11 @@ modules = [
 
 nixos-shimboot's `mkForce` declarations handle ChromeOS-specific constraints (initScript boot, single-partition layout). Personal config handles everything else — DE, packages, theming, services.
 
-## Shimboot-Specific Workarounds
+</details>
+<!-- END fragment: 05-architecture.md -->
+<!-- BEGIN fragment: 06-workarounds.md -->
+<details>
+<summary>Shimboot-Specific Workarounds</summary>
 
 nixos-shimboot includes several workarounds inherited from shimboot's ChromeOS kernel limitations:
 
@@ -88,7 +108,11 @@ nixos-shimboot includes several workarounds inherited from shimboot's ChromeOS k
 | `setup-nixos` | nixos-shimboot | Interactive first-boot setup helper |
 | `kill-frecon` | shimboot | Disables ChromeOS frecon to allow graphics |
 
-## Configuration Options
+</details>
+<!-- END fragment: 06-workarounds.md -->
+<!-- BEGIN fragment: 07-configuration.md -->
+<details>
+<summary>Configuration Options</summary>
 
 ### nixos-shimboot Fish Shell
 
@@ -115,7 +139,11 @@ Core abbreviations `nrb` (nixos-rebuild-basic) and `cdn` (cd to config dir) are 
 | `system/` | NixOS system modules (services, packages, theming) |
 | `home/` | Home Manager modules (dotfiles, apps, hyprland config) |
 
-## Known Limitations
+</details>
+<!-- END fragment: 07-configuration.md -->
+<!-- BEGIN fragment: 08-limitations.md -->
+<details>
+<summary>Known Limitations</summary>
 
 - Desktop config requires nixos-shimboot as a flake input
 - ChromeOS kernel limitations apply (no suspend, limited audio) — inherited from shimboot
@@ -123,3 +151,22 @@ Core abbreviations `nrb` (nixos-rebuild-basic) and `cdn` (cd to config dir) are 
 - `nixos-rebuild` may require `--option sandbox false` on shim kernels <5.6
 
 For more documentation, see the [nixos-shimboot repo](https://github.com/PopCat19/nixos-shimboot).
+
+</details>
+<!-- END fragment: 08-limitations.md -->
+<!-- BEGIN fragment: context.md -->
+
+# Context
+
+- `01-header.md` — Repository title and high-level purpose
+- `02-introduction.md` — Detailed explanation of the project context and shimboot relationship
+- `03-structure.md` — Directory structure and component mapping
+- `04-quickstart.md` — Essential commands for cloning and building
+- `05-architecture.md` — Internal architecture and shimboot integration
+- `06-workarounds.md` — Documentation of ChromeOS-specific kernel workarounds
+- `07-configuration.md` — User-configurable options and module paths
+- `08-limitations.md` — Known issues and fleet-wide constraints
+
+<!-- END fragment: context.md -->
+
+<!-- generated: 20260515-cc6f4a2 -->
