@@ -164,20 +164,18 @@ function nixos-rebuild-basic
     # Rebuild phase
     set -l flake_target (hostname)
 
-    # Ensure flake inputs are fetched into the store using the current user's proxy
-    # before switching to sudo, which prevents proxy variables from leaking into
-    # the build environment (critical when sandbox=false).
-    set_color blue; echo "[STEP] Warming up flake inputs..."; set_color normal
-    if not nix evaluate ".#nixosConfigurations.$flake_target" >/dev/null 2>&1
-        set_color yellow; echo "[INFO] Input fetch failed or flake is invalid; rebuild may still attempt to fetch."; set_color normal
-    end
+    # Warm-up: Fetch flake inputs as the user.
+    # This ensures the nix-daemon (which has proxy set via systemctl)
+    # handles the network requests, and the client doesn't fail on DNS.
+    set_color blue; echo "[STEP] Pre-fetching flake inputs..."; set_color normal
+    nix flake lock --print . >/dev/null 2>&1
 
     # Build arguments
     set -l rebuild_cmd
     set -l rebuild_args $action
 
     if test "$use_nh" = true
-        set rebuild_cmd sudo $proxy_env nh os
+        set rebuild_cmd sudo nh os
         set -a rebuild_args $NIXOS_CONFIG_DIR --hostname $flake_target --bypass-root-check
         
         # Pass extra flags (like --offline) to nix via --
@@ -185,7 +183,7 @@ function nixos-rebuild-basic
             set -a rebuild_args -- $extra_args
         end
     else
-        set rebuild_cmd sudo $proxy_env nixos-rebuild
+        set rebuild_cmd sudo nixos-rebuild
         set -a rebuild_args --flake $NIXOS_CONFIG_DIR#$flake_target
         
         if test -n "$extra_args"
