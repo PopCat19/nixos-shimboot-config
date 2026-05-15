@@ -26,6 +26,7 @@
     ../system/modules/services.nix
     ../system/modules/stylix.nix
     ../system/modules/syncthing.nix
+    ../system/modules/proxy.nix
   ];
 
   # Re-export userConfig for shimboot modules
