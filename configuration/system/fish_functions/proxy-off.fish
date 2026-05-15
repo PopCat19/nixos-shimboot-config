@@ -1,10 +1,13 @@
-#!/usr/bin/env fish
-
-# Proxy Environment Off
+# proxy-off.fish
+#
 # Purpose: Disable proxy environment variables
-# Usage: proxy_off
+#
+# This module:
+# - Unsets http_proxy, https_proxy, all_proxy, no_proxy
+# - Clears systemd user environment if available
+# - Confirms proxy disabled status
 
-function proxy-off
+function proxy_off
     set -e http_proxy
     set -e https_proxy
     set -e all_proxy
@@ -20,5 +23,5 @@ function proxy-off
         sudo systemctl restart nix-daemon
     end
 
-    set_color red; echo -n "[OK]"; set_color normal; echo " Proxy disabled"
+    set_color red; echo "[OK]"; set_color normal; echo " Proxy disabled"
 end

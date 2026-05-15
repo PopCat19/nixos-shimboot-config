@@ -20,6 +20,10 @@ in
     "fish/functions/proxy-on.fish".text = builtins.readFile "${fishFunctionsDir}/proxy-on.fish";
     "fish/functions/proxy-off.fish".text = builtins.readFile "${fishFunctionsDir}/proxy-off.fish";
     "fish/functions/proxify.fish".text = builtins.readFile "${fishFunctionsDir}/proxify.fish";
+    "fish/functions/nixos-rebuild-basic.fish".text = builtins.readFile "${fishFunctionsDir}/nixos-rebuild-basic.fish";
+    "fish/functions/nixos-status.fish".text = builtins.readFile "${fishFunctionsDir}/nixos-status.fish";
+    "fish/functions/nix-flake-update.fish".text = builtins.readFile "${fishFunctionsDir}/nix-flake-update.fish";
+    "fish/functions/cnup.fish".text = builtins.readFile "${fishFunctionsDir}/cnup.fish";
     "fish/functions/completions/proxify.fish".text = builtins.readFile "${fishFunctionsDir}/completions/proxify.fish";
   };
 }
