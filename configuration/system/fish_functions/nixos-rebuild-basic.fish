@@ -87,6 +87,9 @@ function nixos-rebuild-basic
         set -a proxy_env HTTPS_PROXY=$https_proxy
         set -a proxy_env ALL_PROXY=$all_proxy
         set -a proxy_env NO_PROXY=$no_proxy
+        set_color cyan; echo "[INFO] Proxy detected; applying to sudo command..."; set_color normal
+    else
+        set_color yellow; echo "[WARN] No proxy (all_proxy) detected in shell. Rebuild will run without proxy variables."; set_color normal
     end
 
     # System rollback: switch to previous generation, skip rebuild
