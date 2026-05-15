@@ -184,20 +184,18 @@ function nixos-rebuild-basic
 
     # Kernel < 5.6 lacks sandbox support; --no-sandbox forces it unconditionally
     set -l kver (uname -r)
-    if test "$force_no_sandbox" = true
+    if test "$force_no_sandbox" = true; or string match -qr '^([0-4]\.|5\.[0-5][^0-9])' "$kver"
         if test "$auto_mode" = true
-            echo "[WARN] Sandbox disabled (--no-sandbox)"
+            echo "[WARN] Sandbox disabled (Kernel < 5.6 or --no-sandbox)"
         else
-            set_color yellow; echo "[WARN] Sandbox disabled (--no-sandbox)"; set_color normal
+            set_color yellow; echo "[WARN] Sandbox disabled (Kernel < 5.6 or --no-sandbox)"; set_color normal
         end
-        set -a rebuild_args -- --option sandbox false
-    else if string match -qr '^([0-4]\.|5\.[0-5][^0-9])' "$kver"
-        if test "$auto_mode" = true
-            echo "[WARN] Kernel $kver (< 5.6) detected. Disabling sandbox."
+
+        if test "$use_nh" = true
+            set -a rebuild_args -- --option sandbox false
         else
-            set_color yellow; echo "[WARN] Kernel $kver (< 5.6) detected. Disabling sandbox."; set_color normal
+            set -a rebuild_args --option sandbox false
         end
-        set -a rebuild_args -- --option sandbox false
     end
 
     if test "$auto_mode" = true
