@@ -176,15 +176,16 @@ function nixos-rebuild-basic
 
     if test "$use_nh" = true
         set rebuild_cmd sudo $proxy_env nh os
-        set -a rebuild_args $NIXOS_CONFIG_DIR --hostname $flake_target --bypass-root-check
+        # For nh, we put the configuration path and hostname first
+        set -a rebuild_args $action $NIXOS_CONFIG_DIR --hostname $flake_target --bypass-root-check
         
-        # Pass extra flags (like --offline) to nix via --
+        # Pass extra flags (like --offline) to nix via the -- separator
         if test -n "$extra_args"
             set -a rebuild_args -- $extra_args
         end
     else
         set rebuild_cmd sudo $proxy_env nixos-rebuild
-        set -a rebuild_args --flake $NIXOS_CONFIG_DIR#$flake_target
+        set -a rebuild_args $action --flake $NIXOS_CONFIG_DIR#$flake_target
         
         if test -n "$extra_args"
             set -a rebuild_args $extra_args

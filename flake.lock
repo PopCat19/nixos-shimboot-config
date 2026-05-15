@@ -451,11 +451,11 @@
         "nixpkgs-systemd": "nixpkgs-systemd"
       },
       "locked": {
-        "lastModified": 1778863142,
-        "narHash": "sha256-2ERWEfL2D/IBpKoMbl2eUECxditQ9C3147xoyn8JFwI=",
+        "lastModified": 1778870551,
+        "narHash": "sha256-p5XYa21tC11BO/AYUgMSWAR0xRisptQTW4owhCXMqHc=",
         "owner": "PopCat19",
         "repo": "nixos-shimboot",
-        "rev": "6989c5a5e6397f6d1b0401f6b251801e96e39bf1",
+        "rev": "07ce993d9e09ccf1c3138974c2d83ae3beb4077a",
         "type": "github"
       },
       "original": {
