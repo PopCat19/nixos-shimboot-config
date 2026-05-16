@@ -29,6 +29,7 @@
     ./modules/stylix.nix
     ./modules/programs.nix
     ./modules/starship.nix
+    ./modules/nixcord.nix
     ./modules/home-files.nix
     ./modules/systemd-services.nix
     ./modules/wallpaper.nix

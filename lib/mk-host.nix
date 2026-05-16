@@ -25,6 +25,7 @@
             useGlobalPkgs = false;
             useUserPackages = true;
             sharedModules = [
+              inputs.nixcord.homeModules.nixcord
               { nixpkgs.config.allowUnfree = true; }
             ];
             users.${userConfig.username} = import (hostPath + "/home.nix");
