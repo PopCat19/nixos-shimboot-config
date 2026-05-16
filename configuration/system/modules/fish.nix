@@ -8,9 +8,7 @@
 # - cnup: Quick update of flake inputs
 # - lsa: Better ls with aliases
 # - etc.
-{
-  ...
-}:
+_:
 let
   fishFunctionsDir = ../fish_functions;
 in
