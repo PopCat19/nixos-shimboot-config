@@ -17,5 +17,6 @@
     python3
     rustup
     eza
+    alacritty
   ];
 }
