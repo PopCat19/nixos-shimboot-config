@@ -28,11 +28,9 @@
 let
   cfg = config.services.sing-box;
 
-  mkFishFunction =
-    path: text:
-    {
-      "fish/functions/${path}".text = text;
-    };
+  mkFishFunction = path: text: {
+    "fish/functions/${path}".text = text;
+  };
 
   singboxOnBody = ''
     function singbox_on
@@ -148,7 +146,12 @@ in
       description = "Whether to start sing-box TUN automatically on boot";
     };
     autoTrigger = lib.mkOption {
-      type = lib.types.nullOr (lib.types.enum [ "ip" "ssid" ]);
+      type = lib.types.nullOr (
+        lib.types.enum [
+          "ip"
+          "ssid"
+        ]
+      );
       default = "ip";
       description = ''
         Auto-start/stop sing-box based on network connection.
@@ -232,7 +235,10 @@ in
         {
           type = "urltest";
           tag = "proxy";
-          outbounds = [ "proxy-http" "proxy-socks" ];
+          outbounds = [
+            "proxy-http"
+            "proxy-socks"
+          ];
           url = "http://www.gstatic.com/generate_204";
           interval = "10m";
         }
@@ -306,52 +312,65 @@ in
 
     # ── NetworkManager auto-trigger ──────────────────────────────
 
-    environment.etc = mkFishFunction "singbox_on.fish" singboxOnBody
+    environment.etc =
+      mkFishFunction "singbox_on.fish" singboxOnBody
       // mkFishFunction "singbox_off.fish" singboxOffBody
       // mkFishFunction "proxify.fish" proxifyBody
-      // (let
-        triggerScript = pkgs.writeShellScript "nm-singbox-trigger" ''
-          set -euo pipefail
-          IFACE="$1"
-          ACTION="$2"
+      // (
+        let
+          triggerScript = pkgs.writeShellScript "nm-singbox-trigger" ''
+            set -euo pipefail
+            IFACE="$1"
+            ACTION="$2"
 
-          [ -d "/sys/class/net/$IFACE/wireless" ] || exit 0
+            [ -d "/sys/class/net/$IFACE/wireless" ] || exit 0
 
-          if [ "$ACTION" = "up" ]; then
-          ${if cfg.autoTrigger == "ip" then ''
-            if ip -4 addr show "$IFACE" | grep -q 'inet 192\.168\.49\.'; then
-              ${config.systemd.package}/bin/systemctl start sing-box 2>/dev/null || true
+            if [ "$ACTION" = "up" ]; then
+            ${
+              if cfg.autoTrigger == "ip" then
+                ''
+                  if ip -4 addr show "$IFACE" | grep -q 'inet 192\.168\.49\.'; then
+                    ${config.systemd.package}/bin/systemctl start sing-box 2>/dev/null || true
+                  fi
+                ''
+              else
+                ''
+                  SSID="$(${pkgs.iw}/bin/iwgetid -r "$IFACE" 2>/dev/null || true)"
+                  case "$SSID" in
+                    DIRECT-*) ${config.systemd.package}/bin/systemctl start sing-box 2>/dev/null || true ;;
+                  esac
+                ''
+            }
+            elif [ "$ACTION" = "down" ]; then
+              FOUND=0
+              for i in /sys/class/net/*/wireless; do
+                IF="$(basename "$(dirname "$i")")"
+                [ "$IF" = "$IFACE" ] && continue
+            ${
+              if cfg.autoTrigger == "ip" then
+                ''
+                  if ip -4 addr show "$IF" 2>/dev/null | grep -q 'inet 192\.168\.49\.'; then
+                    FOUND=1; break
+                  fi
+                ''
+              else
+                ''
+                  S="$(${pkgs.iw}/bin/iwgetid -r "$IF" 2>/dev/null || true)"
+                  case "$S" in DIRECT-*) FOUND=1; break ;; esac
+                ''
+            }
+              done
+              [ "$FOUND" = 0 ] && ${config.systemd.package}/bin/systemctl stop sing-box 2>/dev/null || true
             fi
-          '' else ''
-            SSID="$(${pkgs.iw}/bin/iwgetid -r "$IFACE" 2>/dev/null || true)"
-            case "$SSID" in
-              DIRECT-*) ${config.systemd.package}/bin/systemctl start sing-box 2>/dev/null || true ;;
-            esac
-          ''}
-          elif [ "$ACTION" = "down" ]; then
-            FOUND=0
-            for i in /sys/class/net/*/wireless; do
-              IF="$(basename "$(dirname "$i")")"
-              [ "$IF" = "$IFACE" ] && continue
-          ${if cfg.autoTrigger == "ip" then ''
-              if ip -4 addr show "$IF" 2>/dev/null | grep -q 'inet 192\.168\.49\.'; then
-                FOUND=1; break
-              fi
-          '' else ''
-              S="$(${pkgs.iw}/bin/iwgetid -r "$IF" 2>/dev/null || true)"
-              case "$S" in DIRECT-*) FOUND=1; break ;; esac
-          ''}
-            done
-            [ "$FOUND" = 0 ] && ${config.systemd.package}/bin/systemctl stop sing-box 2>/dev/null || true
-          fi
-        '';
-      in
+          '';
+        in
         lib.optionalAttrs (cfg.autoTrigger != null) {
           "NetworkManager/dispatcher.d/90-singbox" = {
             source = triggerScript;
             mode = "0755";
           };
-        });
+        }
+      );
 
     # ── Sudo rules ────────────────────────────────────────────────
 
