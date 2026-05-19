@@ -379,6 +379,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-systemd": {
+      "locked": {
+        "lastModified": 1759514779,
+        "narHash": "sha256-ifUlBNPpzssInhPfEJIkndSVpDKGe09a1Fk/TGPsI2M=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d3736636ac39ed678e557977b65d620ca75142d0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "d3736636ac39ed678e557977b65d620ca75142d0",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts_3",
@@ -536,14 +552,15 @@
         "linux-firmware": "linux-firmware",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "nixpkgs-systemd": "nixpkgs-systemd"
       },
       "locked": {
-        "lastModified": 1779206351,
-        "narHash": "sha256-kYyrGDGxPHEQx6ATF+D76Yv/UbkBKogGWba6ugUHy8c=",
+        "lastModified": 1779208558,
+        "narHash": "sha256-MpcBkpRzF26kSTpF2y0PRSUt54/unb4X1rzi+VnyasA=",
         "owner": "PopCat19",
         "repo": "nixos-shimboot",
-        "rev": "761277a37fb1de6baf8dc04a9f9e5c79239bbc9c",
+        "rev": "dcb974b00f48a9bdd7c363dc792cde7cbeba3c32",
         "type": "github"
       },
       "original": {
