@@ -539,11 +539,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779176826,
-        "narHash": "sha256-Q59XB/uRKTAnia3Ss1HVTQBqumgxubUXX5OGQd9L7oE=",
+        "lastModified": 1779194523,
+        "narHash": "sha256-o0igB+VF711xjaE7Ab3CnenHNPIJ4ojr05A03OuvTsc=",
         "owner": "PopCat19",
         "repo": "nixos-shimboot",
-        "rev": "29b9d31258dd2e80927d547e4965aa955e304354",
+        "rev": "4999e3025e0902f630c3e1574cba7352deb65ed2",
         "type": "github"
       },
       "original": {
