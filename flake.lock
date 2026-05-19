@@ -292,6 +292,23 @@
         "type": "github"
       }
     },
+    "linux-firmware": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1778106593,
+        "narHash": "sha256-wndG97ocehkxfeEMhuyH6jvbwgtya7XBuwRNMBiVibo=",
+        "ref": "master",
+        "rev": "f2ab21221b09930714cf3a723f0ba920ac281b2b",
+        "revCount": 1693,
+        "type": "git",
+        "url": "https://chromium.googlesource.com/chromiumos/third_party/linux-firmware"
+      },
+      "original": {
+        "ref": "master",
+        "type": "git",
+        "url": "https://chromium.googlesource.com/chromiumos/third_party/linux-firmware"
+      }
+    },
     "nixcord": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -359,22 +376,6 @@
         "owner": "NixOS",
         "ref": "nixos-25.11",
         "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs-systemd": {
-      "locked": {
-        "lastModified": 1759514779,
-        "narHash": "sha256-ifUlBNPpzssInhPfEJIkndSVpDKGe09a1Fk/TGPsI2M=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "d3736636ac39ed678e557977b65d620ca75142d0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "d3736636ac39ed678e557977b65d620ca75142d0",
         "type": "github"
       }
     },
@@ -532,17 +533,17 @@
     },
     "shimboot": {
       "inputs": {
+        "linux-firmware": "linux-firmware",
         "nixpkgs": [
           "nixpkgs"
-        ],
-        "nixpkgs-systemd": "nixpkgs-systemd"
+        ]
       },
       "locked": {
-        "lastModified": 1778893571,
-        "narHash": "sha256-3D97U+QrMW5ZM9qqcHuEuyt/n4oxfx0Vs54FXjba+JE=",
+        "lastModified": 1779174645,
+        "narHash": "sha256-lEwclqsUh8OEB4mEwk3oVroTiaLeBEeYY8MihHo7R8E=",
         "owner": "PopCat19",
         "repo": "nixos-shimboot",
-        "rev": "55a1cf2a11bb373716e81ee41cac3781a9714108",
+        "rev": "c3a45393bf50b63e0e2651c2ca6cb2b087827881",
         "type": "github"
       },
       "original": {
