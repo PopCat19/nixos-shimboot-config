@@ -26,7 +26,7 @@
     ../system/modules/services.nix
     ../system/modules/stylix.nix
     ../system/modules/syncthing.nix
-    ../system/modules/proxy.nix
+    ../system/modules/sing-box.nix
   ];
 
   # Re-export userConfig for shimboot modules
@@ -34,4 +34,7 @@
 
   # Override NIXOS_CONFIG_DIR for this repo
   environment.sessionVariables.NIXOS_CONFIG_DIR = lib.mkForce userConfig.env.NIXOS_CONFIG_DIR;
+
+  # Enable sing-box TUN proxy (togglable via singbox_on / singbox_off)
+  services.sing-box.enable = true;
 }
