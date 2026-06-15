@@ -1,3 +1,7 @@
+# 02-introduction
+#
+# Purpose: README manifest fragment for introduction
+#
 This repo contains desktop configurations that layer on top of nixos-shimboot, a NixOS-based derivative of [ading2210/shimboot](https://github.com/ading2210/shimboot).
 
 ### shimboot vs nixos-shimboot

@@ -1,3 +1,7 @@
+# environment.nix
+#
+# Purpose: Configure environment application settings
+#
 {
   userConfig,
   ...

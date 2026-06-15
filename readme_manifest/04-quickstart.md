@@ -1,3 +1,7 @@
+# 04-quickstart
+#
+# Purpose: README manifest fragment for quickstart
+#
 ## Quick Start
 
 ### Prerequisites

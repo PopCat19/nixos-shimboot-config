@@ -1,3 +1,7 @@
+# 05-architecture
+#
+# Purpose: README manifest fragment for architecture
+#
 This repo imports nixos-shimboot as a hardware module:
 
 ```nix

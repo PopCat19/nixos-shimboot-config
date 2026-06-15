@@ -1,3 +1,7 @@
+# micro.nix
+#
+# Purpose: Configure micro application settings
+#
 _: {
   # Micro text editor configuration
   programs.micro = {

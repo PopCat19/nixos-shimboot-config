@@ -1,3 +1,7 @@
+# fuzzel.nix
+#
+# Purpose: Configure fuzzel application settings
+#
 { userConfig, ... }:
 {
   # Fuzzel Launcher Configuration - Enhanced with Rose Pine theme and QoL features.

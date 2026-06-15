@@ -1,3 +1,7 @@
+# 03-structure
+#
+# Purpose: README manifest fragment for structure
+#
 ```
 nixos-shimboot-config/
 ├── flake.nix           # imports nixos-shimboot as flake input

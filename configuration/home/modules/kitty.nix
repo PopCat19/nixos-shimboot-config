@@ -1,3 +1,7 @@
+# kitty.nix
+#
+# Purpose: Configure kitty application settings
+#
 _: {
   programs.kitty = {
     enable = true;
