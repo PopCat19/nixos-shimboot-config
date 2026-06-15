@@ -120,7 +120,7 @@ Ensure the nixos-shimboot input is resolving correctly:
 nix flake metadata
 ```
 
-### nrb fails — hostname not found
+### nrb fails, hostname not found
 
 Use explicit target:
 ```bash
@@ -133,6 +133,6 @@ Add to shimboot `nix-options.nix`:
 ```nix
 nix.settings.max-jobs = "1";
 ```
-Serializes builds — prevents multiple compilers competing for RAM.
+Serializes builds, prevents multiple compilers competing for RAM.
 
 For more documentation, see the [nixos-shimboot repo](https://github.com/PopCat19/nixos-shimboot).

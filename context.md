@@ -1,9 +1,9 @@
 # Context
 
-- `flake.nix` — Main flake entry point with binary cache configuration for Hyprland and shimboot
-- `flake.lock` — Dependency lock file for reproducible builds
-- `QUICKSTART.md` — Short guide for getting started with the configuration
-- `README.md` — Detailed documentation of the repository purpose and structure
+- `flake.nix`, Main flake entry point with binary cache configuration for Hyprland and shimboot
+- `flake.lock`, Dependency lock file for reproducible builds
+- `QUICKSTART.md`, Short guide for getting started with the configuration
+- `README.md`, Detailed documentation of the repository purpose and structure
 
 ## Binary Caches
 

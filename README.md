@@ -9,11 +9,11 @@ Personal ChromeOS desktop configuration for [nixos-shimboot](https://github.com/
 <details>
 <summary>What is this?</summary>
 
-This repo contains desktop configurations that layer on top of nixos-shimboot — a NixOS-based derivative of [ading2210/shimboot](https://github.com/ading2210/shimboot).
+This repo contains desktop configurations that layer on top of nixos-shimboot, a NixOS-based derivative of [ading2210/shimboot](https://github.com/ading2210/shimboot).
 
 ### shimboot vs nixos-shimboot
 
-**shimboot** ([ading2210/shimboot](https://github.com/ading2210/shimboot)) is the original project — a collection of Python/bash scripts that patch a ChromeOS RMA shim to boot a standard Linux distribution (Debian by default). It uses `build_complete.sh`, `patch_rootfs.sh`, and `build.sh` to construct disk images.
+**shimboot** ([ading2210/shimboot](https://github.com/ading2210/shimboot)) is the original project, a collection of Python/bash scripts that patch a ChromeOS RMA shim to boot a standard Linux distribution (Debian by default). It uses `build_complete.sh`, `patch_rootfs.sh`, and `build.sh` to construct disk images.
 
 **nixos-shimboot** ([PopCat19/nixos-shimboot](https://github.com/PopCat19/nixos-shimboot)) is a derivative that replaces shimboot's Debian rootfs building with NixOS flake-based image generation. It uses the NixOS module system for declarative configuration, `raw-efi` image building via nixpkgs, and a patched systemd for ChromeOS kernel compatibility.
 
@@ -90,7 +90,7 @@ modules = [
 ];
 ```
 
-nixos-shimboot's `mkForce` declarations handle ChromeOS-specific constraints (initScript boot, single-partition layout). Personal config handles everything else — DE, packages, theming, services.
+nixos-shimboot's `mkForce` declarations handle ChromeOS-specific constraints (initScript boot, single-partition layout). Personal config handles everything else, DE, packages, theming, services.
 
 </details>
 <!-- END fragment: 05-architecture.md -->
@@ -146,7 +146,7 @@ Core abbreviations `nrb` (nixos-rebuild-basic) and `cdn` (cd to config dir) are 
 <summary>Known Limitations</summary>
 
 - Desktop config requires nixos-shimboot as a flake input
-- ChromeOS kernel limitations apply (no suspend, limited audio) — inherited from shimboot
+- ChromeOS kernel limitations apply (no suspend, limited audio), inherited from shimboot
 - Some Home Manager modules may require specific package versions
 - `nixos-rebuild` may require `--option sandbox false` on shim kernels <5.6
 
@@ -158,14 +158,14 @@ For more documentation, see the [nixos-shimboot repo](https://github.com/PopCat1
 
 # Context
 
-- `01-header.md` — Repository title and high-level purpose
-- `02-introduction.md` — Detailed explanation of the project context and shimboot relationship
-- `03-structure.md` — Directory structure and component mapping
-- `04-quickstart.md` — Essential commands for cloning and building
-- `05-architecture.md` — Internal architecture and shimboot integration
-- `06-workarounds.md` — Documentation of ChromeOS-specific kernel workarounds
-- `07-configuration.md` — User-configurable options and module paths
-- `08-limitations.md` — Known issues and fleet-wide constraints
+- `01-header.md`, Repository title and high-level purpose
+- `02-introduction.md`, Detailed explanation of the project context and shimboot relationship
+- `03-structure.md`, Directory structure and component mapping
+- `04-quickstart.md`, Essential commands for cloning and building
+- `05-architecture.md`, Internal architecture and shimboot integration
+- `06-workarounds.md`, Documentation of ChromeOS-specific kernel workarounds
+- `07-configuration.md`, User-configurable options and module paths
+- `08-limitations.md`, Known issues and fleet-wide constraints
 
 <!-- END fragment: context.md -->
 
