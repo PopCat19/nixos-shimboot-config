@@ -66,7 +66,7 @@
     };
 
     pmd = {
-      url = "github:popcat19/project-minimalist-design/dev";
+      url = "git+https://dawn.wine/popcat19/project-minimalist-design.git?ref=dev";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
