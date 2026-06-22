@@ -46,9 +46,6 @@
       "$mainMod, P, exec, screenshot region"
       "$mainMod+Shift, P, exec, screenshot window"
       "$mainMod+Ctrl, P, exec, screenshot monitor"
-      "$mainMod+Alt, P, exec, screenshot region --keep-shader"
-      "$mainMod+Alt+Shift, P, exec, screenshot window --keep-shader"
-      "$mainMod+Alt+Ctrl, P, exec, screenshot monitor --keep-shader"
 
       ",XF86AudioPlay, exec, playerctl play-pause"
       ",XF86AudioPause, exec, playerctl play-pause"

@@ -10,8 +10,15 @@
 # - Sets up audio effects processing
 _: {
   services = {
+    easyeffects.enable = true;
+    hyprsunset = {
+      enable = true;
+      settings.profile = [{
+        time = "00:00";
+        temperature = 3200;
+      }];
+    };
     playerctld.enable = true;
     udiskie.enable = true;
-    easyeffects.enable = true;
   };
 }

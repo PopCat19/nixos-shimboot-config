@@ -26,6 +26,7 @@
     ./modules/kde.nix
     ./modules/micro.nix
     ./modules/privacy.nix
+    ./modules/screenshot.nix
     ./modules/stylix.nix
     ./modules/programs.nix
     ./modules/starship.nix

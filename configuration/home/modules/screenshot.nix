@@ -1,11 +1,12 @@
 # screenshot.nix
 #
-# Purpose: Provide simple hyprshot wrapper with predictable shader handling
+# Purpose: Screenshot capture using grimblast with hyprshade bypass
 #
 # This module:
-# - Installs hyprshot
-# - Creates minimal screenshot wrapper
+# - Installs grimblast for Wayland screenshot capture
+# - Creates fish wrapper with hyprshade workaround
 { pkgs, ... }:
+
 let
   screenshotScript = pkgs.writeShellScriptBin "screenshot" ''
     set -euo pipefail
@@ -14,13 +15,17 @@ let
     mkdir -p "$SCREENSHOTS_DIR"
 
     MODE="output"
+    KEEP_SHADER=false
 
-    case "''${1:-monitor}" in
-      monitor) MODE="output" ;;
-      region) MODE="region" ;;
-      window) MODE="window" ;;
-      *) echo "Usage: screenshot [monitor|region|window]" >&2; exit 1 ;;
-    esac
+    for arg in "$@"; do
+      case "$arg" in
+        monitor) MODE="output" ;;
+        region) MODE="area" ;;
+        window) MODE="active" ;;
+        --keep-shader) KEEP_SHADER=true ;;
+        *) echo "Usage: screenshot [monitor|region|window] [--keep-shader]" >&2; exit 1 ;;
+      esac
+    done
 
     shader=""
     restore_shader() {
@@ -29,7 +34,7 @@ let
       fi
     }
 
-    if command -v hyprshade >/dev/null 2>&1; then
+    if [[ "$KEEP_SHADER" == false ]] && command -v hyprshade >/dev/null 2>&1; then
       shader=$(hyprshade current 2>/dev/null || true)
       if [[ -n "$shader" && "$shader" != "Off" ]]; then
         hyprshade off
@@ -37,17 +42,14 @@ let
       fi
     fi
 
-    ${pkgs.hyprshot}/bin/hyprshot \
-      --freeze \
-      --mode "$MODE" \
-      -o "$SCREENSHOTS_DIR"
+    ${pkgs.grimblast}/bin/grimblast --notify --freeze copysave "$MODE" "$SCREENSHOTS_DIR/screenshot-$(date +%Y%m%d-%H%M%S).png"
   '';
 in
 {
   home.file."Pictures/Screenshots/.keep".text = "";
 
   home.packages = with pkgs; [
-    hyprshot
+    grimblast
     screenshotScript
   ];
 }

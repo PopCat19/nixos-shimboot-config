@@ -40,5 +40,10 @@
     ".config/hypr/monitors.conf".source = ./monitors.conf;
     ".config/hypr/userprefs.conf".source = ./userprefs.conf;
     ".config/hypr/shaders".source = ./shaders;
+    ".config/hypr/scripts" = {
+      source = ./scripts;
+      recursive = true;
+      executable = true;
+    };
   };
 }
